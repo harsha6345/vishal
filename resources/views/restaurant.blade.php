@@ -1,10 +1,16 @@
+@php
+    $restId = request()->segment(2);
+    $restaraunt = DB::table('restaraunts')->find($restId);
+    
+@endphp
+
 <!DOCTYPE html>
 <html lang="en">
 
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Restaurants </title>
+    <title> {{ $restaraunt->name }} </title>
     <script src="https://cdn.tailwindcss.com"></script>
     <script src="//unpkg.com/alpinejs" defer></script>
     <link rel="stylesheet" href="style.css" />
@@ -13,11 +19,7 @@
 </head>
 
 <body>
-    @php
-        $restId = request()->segment(2);
-        $restaraunt = DB::table('restaraunts')->find($restId);
-        
-    @endphp
+
 
     @include('header')
     <section>
@@ -33,9 +35,9 @@
                             </p>
                         </header>
 
-                        <a href="tel:{{ $restaraunt->phone }}"
+                        <a
                             class="inline-block px-12 py-3 mt-8 text-sm font-medium text-white transition bg-rose-700 border rounded hover:shadow focus:outline-none focus:ring">
-                            Call now
+                            Phone : {{ $restaraunt->phone }}
                         </a>
 
                     </div>

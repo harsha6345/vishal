@@ -2,6 +2,7 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Models\Station ;
+use App\Models\Restaraunt ;
 use App\Http\Controllers\StationController;
 use App\Http\Controllers\RestarauntController;
 
@@ -23,10 +24,14 @@ Route::get('/', function () {
 
 Route::get('/stations', [StationController::class , 'index' ]);
 
-Route::get('/restaurants/{station:id}', function () {
-    
-    return view('restaurants_stations');
+Route::get('/restaurants/{station:id}', function ($stationId) {
+
+    $station = Station::find($stationId);
+    $restaurants = Restaraunt::where('station_id', $stationId)->get();
+
+    return view('restaurants_stations', compact('station', 'restaurants'));
 });
+
 
 Route::get('/restaurant/{restaraunt:id}', function() {
     return view('restaurant');
